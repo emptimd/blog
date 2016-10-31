@@ -1,0 +1,33 @@
+@extends('la.layouts.app')
+
+
+@section("contentheader_title")
+    <a href="{!! url('$ROUTE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$') !!}">$MODEL_NAME_PLURAL_HUMAN$</a> :
+@endsection
+@section("contentheader_description", $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$)
+@section("section", "$MODEL_NAME_PLURAL_HUMAN$")
+@section("section_url", url('$ROUTE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$'))
+@section("sub_section", "Show")
+
+@section("htmlheader_title", "Show $MODEL_NAME_HUMAN$ : ".$$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$)
+
+@section('main-content')
+
+    <div id="page-content" class="profile2">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active fade in" id="tab-info">
+                <div class="tab-content">
+                    <div class="panel infolist">
+                        <div class="panel-default panel-heading">
+                            <h4>General Info</h4>
+                        </div>
+                        <div class="panel-body">
+                            @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.show_fields')
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

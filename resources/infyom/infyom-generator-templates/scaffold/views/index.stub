@@ -1,0 +1,24 @@
+@extends("la.layouts.app")
+
+@section("contentheader_title", "$MODEL_NAME_PLURAL_HUMAN$")
+@section("contentheader_description", "$MODEL_NAME_PLURAL_HUMAN$ listing")
+@section("section", "$MODEL_NAME_PLURAL_HUMAN$")
+@section("sub_section", "Listing")
+@section("htmlheader_title", "$MODEL_NAME_PLURAL_HUMAN$ Listing")
+
+
+@section("headerElems")
+    <a class="btn btn-success btn-sm pull-right" href="{!! route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create') !!}">Add $MODEL_NAME_CAMEL$</a>
+@endsection
+
+@section('main-content')
+    @include('flash::message')
+
+    <div class="clearfix"></div>
+    <div class="box box-success">
+        <div class="box-body">
+            @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.table')
+        </div>
+    </div>
+@endsection
+
