@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Eloquent as Model;
 
+
 /**
- * Class City
+ * App\Models\City
  *
- * @package App\Models
- * @version October 17, 2016, 9:20 pm UTC
  * @property integer $id
  * @property string $name
  * @property string $description

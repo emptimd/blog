@@ -12,6 +12,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Input;
 use Response;
+use Illuminate\Http\Request;
 
 class AeController extends AppBaseController
 {
@@ -58,7 +59,7 @@ class AeController extends AppBaseController
         $input = $request->all();
 
 
-        dd($input);
+//        dd($input);
 //
 //        if(Input::hasFile('path')) {
 //            dd(Input::file('path'));
@@ -68,14 +69,15 @@ class AeController extends AppBaseController
 //        $model = new Ae();
 //        $model->imageUpload(['path']);
 //        dd($model->path);
-//        $input['path']=7;
-//        $ae = $this->aeRepository->create($input);
+        $ae = $this->aeRepository->create($input);
+        $ae->imageUpload(['path']);
+        $ae->save();
 //        throw new \Exception(2);
 //        dd($ae->id);
 
-        $model = new Ae();
-        $model->multiUpload(['path']);
-        $model->save();
+//        $model = new Ae();
+//        $model->multiUpload(['path']);
+//        $model->save();
 
         Flash::success('Ae saved successfully.');
 
@@ -140,7 +142,16 @@ class AeController extends AppBaseController
             return redirect(route('admin.aes.index'));
         }
 
+        if(Input::hasFile('path')) {
+            $ae->deleteImage('path');
+        }
+
         $ae = $this->aeRepository->update($request->all(), $id);
+        if(Input::hasFile('path')) {
+            $ae->imageUpload(['path']);
+            $ae->save();
+        }
+
 
         Flash::success('Ae updated successfully.');
 
@@ -169,5 +180,20 @@ class AeController extends AppBaseController
         Flash::success('Ae deleted successfully.');
 
         return redirect(route('admin.aes.index'));
+    }
+
+    public function deleteImage($id)
+    {
+        $model = $this->aeRepository->findWithoutFail($id);
+
+        if (empty($model)) {
+            Flash::error('Ae not found');
+
+            return redirect(route('admin.aes.index'));
+        }
+
+        $model->deleteImage('path');
+        $model->path = '';
+        $model->save();
     }
 }

@@ -79,6 +79,10 @@ return [
 
     'locale' => 'en',
 
+    'locales' => ['en' => 'English', 'sv' => 'Swedish', 'ru' => 'Russian'],
+
+    'skip_locales' => ['admin', 'translations'],
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -182,7 +186,8 @@ return [
         \InfyOm\AdminLTETemplates\AdminLTETemplatesServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         \Creativeorange\Gravatar\GravatarServiceProvider::class,
-        Proengsoft\JsValidation\JsValidationServiceProvider::class,
+        Barryvdh\TranslationManager\ManagerServiceProvider::class,
+//        Proengsoft\JsValidation\JsValidationServiceProvider::class,
 
 
 
@@ -246,7 +251,7 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Flash'     => Laracasts\Flash\Flash::class,
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
-        'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
+//        'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
 
     ],
 

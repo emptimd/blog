@@ -18,7 +18,7 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    {!! Form::open(['route' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.store']) !!}
+                    {!! Form::open(['route' => '$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.store', 'id' => 'main-form']) !!}
 
                     @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.fields')
 

@@ -25,6 +25,7 @@ class UpdateAeRequest extends FormRequest
      */
     public function rules()
     {
-        return Ae::$rules;
+        //here can add req
+        return Ae::$rules2;
     }
 }

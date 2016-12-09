@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -33,11 +34,11 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function map()
+    public function map(Request $req)
     {
         $this->mapApiRoutes();
 
-        $this->mapWebRoutes();
+        $this->mapWebRoutes($req);
 
         //
     }
@@ -49,14 +50,44 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function mapWebRoutes(Request $req)
     {
-        Route::group([
-            'middleware' => 'web',
-            'namespace' => $this->namespace,
-        ], function ($router) {
-            require base_path('routes/web.php');
-        });
+
+        $locale = $req->segment(1);
+
+//        dd($locale);
+
+//        dd($req->path());
+
+
+//        throw new \Exception(3);
+
+//        Route::delete();
+
+
+
+
+
+        if (in_array($locale, \Config::get('app.skip_locales')) || !array_key_exists($locale, \Config::get('app.locales'))) {
+            Route::group([
+                'middleware' => 'web',
+                'namespace' => $this->namespace,
+            ], function ($router) {
+                require base_path('routes/web.php');
+            });
+        }
+        else {
+
+            Route::group([
+                'middleware' => 'web',
+                'namespace' => $this->namespace,
+                'prefix' => $locale
+            ], function ($router) {
+                require base_path('routes/web.php');
+            });
+        }
+
+
     }
 
     /**

@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2016-10-23.
+    * Generated on 2016-11-26.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -77,6 +77,12 @@ namespace PHPSTORM_META {
             'datatables' instanceof \Yajra\Datatables\Datatables,
             'datatables.fractal' instanceof \League\Fractal\Manager,
             'gravatar' instanceof \Creativeorange\Gravatar\Gravatar,
+            'translation-manager' instanceof \Barryvdh\TranslationManager\Manager,
+            'command.translation-manager.reset' instanceof \Barryvdh\TranslationManager\Console\ResetCommand,
+            'command.translation-manager.import' instanceof \Barryvdh\TranslationManager\Console\ImportCommand,
+            'command.translation-manager.find' instanceof \Barryvdh\TranslationManager\Console\FindCommand,
+            'command.translation-manager.export' instanceof \Barryvdh\TranslationManager\Console\ExportCommand,
+            'command.translation-manager.clean' instanceof \Barryvdh\TranslationManager\Console\CleanCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,
@@ -230,6 +236,12 @@ namespace PHPSTORM_META {
             'datatables' instanceof \Yajra\Datatables\Datatables,
             'datatables.fractal' instanceof \League\Fractal\Manager,
             'gravatar' instanceof \Creativeorange\Gravatar\Gravatar,
+            'translation-manager' instanceof \Barryvdh\TranslationManager\Manager,
+            'command.translation-manager.reset' instanceof \Barryvdh\TranslationManager\Console\ResetCommand,
+            'command.translation-manager.import' instanceof \Barryvdh\TranslationManager\Console\ImportCommand,
+            'command.translation-manager.find' instanceof \Barryvdh\TranslationManager\Console\FindCommand,
+            'command.translation-manager.export' instanceof \Barryvdh\TranslationManager\Console\ExportCommand,
+            'command.translation-manager.clean' instanceof \Barryvdh\TranslationManager\Console\CleanCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,
@@ -383,6 +395,12 @@ namespace PHPSTORM_META {
             'datatables' instanceof \Yajra\Datatables\Datatables,
             'datatables.fractal' instanceof \League\Fractal\Manager,
             'gravatar' instanceof \Creativeorange\Gravatar\Gravatar,
+            'translation-manager' instanceof \Barryvdh\TranslationManager\Manager,
+            'command.translation-manager.reset' instanceof \Barryvdh\TranslationManager\Console\ResetCommand,
+            'command.translation-manager.import' instanceof \Barryvdh\TranslationManager\Console\ImportCommand,
+            'command.translation-manager.find' instanceof \Barryvdh\TranslationManager\Console\FindCommand,
+            'command.translation-manager.export' instanceof \Barryvdh\TranslationManager\Console\ExportCommand,
+            'command.translation-manager.clean' instanceof \Barryvdh\TranslationManager\Console\CleanCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,
@@ -536,6 +554,12 @@ namespace PHPSTORM_META {
             'datatables' instanceof \Yajra\Datatables\Datatables,
             'datatables.fractal' instanceof \League\Fractal\Manager,
             'gravatar' instanceof \Creativeorange\Gravatar\Gravatar,
+            'translation-manager' instanceof \Barryvdh\TranslationManager\Manager,
+            'command.translation-manager.reset' instanceof \Barryvdh\TranslationManager\Console\ResetCommand,
+            'command.translation-manager.import' instanceof \Barryvdh\TranslationManager\Console\ImportCommand,
+            'command.translation-manager.find' instanceof \Barryvdh\TranslationManager\Console\FindCommand,
+            'command.translation-manager.export' instanceof \Barryvdh\TranslationManager\Console\ExportCommand,
+            'command.translation-manager.clean' instanceof \Barryvdh\TranslationManager\Console\CleanCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,

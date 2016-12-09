@@ -18,7 +18,7 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    {!! Form::open(['route' => 'admin.aes.store', 'files' => true]) !!}
+                    {!! Form::open(['route' => 'admin.aes.store', 'id' => 'main-form']) !!}
                     @include('back.aes.fields')
 
                     {!! Form::close() !!}
@@ -45,30 +45,25 @@
 
 @push('scripts')
 <script>
-    var arr = [];
-    var token = $('input[name="_token"]').val();
+    var route = $('#main-form').attr('action');
 
-    $('a').on('click', function() {
+
+    $('a.btn_upload_image').on('click', function() {
         $('[type="file"]').click();
     });
 
     $('[type="file"]').on('change',function(){
-    	var $this = $(this),
-            arr = [];
+        var $this = $(this);
 
         var preview = $('#wrap-img').empty();
         var files    = $this[0].files;
-
-        console.log(files);
-
         var reader  = new FileReader();
-
         var i = 0;
 
 
         reader.onload = function () {
             var div = document.createElement("div");
-            var $div = $(div).attr("class", "uploaded_image").append('<img src="'+reader.result+'"/>').append('<i title="Remove Image" class="fa fa-times remove i-" data-i="'+ i +'" >');
+            var $div = $(div).attr("class", "uploaded_image").append('<img src="'+reader.result+'"/>').append('<i title="Remove Image" class="fa fa-times remove" />');
 
             preview.append($div);
 
@@ -84,50 +79,52 @@
     });
 
     $('form').on('click', 'i.remove', function(){
-    	var $this = $(this);
-        arr[$this.data("i")] = $this.data("i");
+        var $this = $(this);
         $this.parent().remove();
     });
 
     $('form').on('submit',function(e){
-    	var $this = $(this);
+        var $this = $(this);
         var files = $('[type="file"]')[0].files;
         var formdata = new FormData($this[0]);
-        formdata.delete('path[]');
+        formdata.delete('path');
+        e.preventDefault();
+
+
+        $('.has-error').removeClass('has-error').find('p.help-block').remove();
 
         //IF HAVE IMAGES.
         if(files.length) {
-            for(var i = 0; i < files.length; i++) {
-                if(arr.indexOf(i) === -1) {
-                    formdata.append('path[]', files[i]);
-                }
-            }
+            formdata.append('path', files[0]);
         }
 
-//        formdata.set('path[]', files[0]);
-//        formdata.append('path[]', files[1]);
-//        console.log(formdata.get('path[]'));
-//        e.preventDefault();
-//        return;
-//        alert(22);
-        e.preventDefault();
-//        alert(11);
+
         $.ajax({
             type: 'POST',
-            url: location.protocol+'//'+location.host+'/admin/aes',
+            url: route,
             data: formdata,
             contentType: false,
-            processData: false
-        }).done(function( data ) {
-            console.log(data);
+            processData: false,
+        }).done(function( data, status, request ) {
+            if(request.status == 200) {
+                location = route;
+            }
+        }).error(function (request, status, error) {
+            if(request.status == 422) {
+                console.log(request.responseJSON);
+                var data = request.responseJSON;
+                for(var obj in data) {
+                    $this.find('[name="'+obj+'"]').after('<p class="help-block">'+data[obj]+'</p>').parent().addClass('has-error');
+                    if(obj.indexOf('path') !== -1) {
+                        $this.find('.btn_upload_image').after('<p class="help-block">'+data[obj]+'</p>').parent().addClass('has-error');
+                    }
+                }
+
+            }
         });
-
-//        {_token: token, name: '1233'}
-
 
     });
 
 </script>
 
 @endpush
-

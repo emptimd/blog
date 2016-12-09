@@ -13,7 +13,7 @@
 <!-- Path Field -->
 <div class="form-group">
     {!! Form::label('path', 'Path:', ['class' =>'col-md-2']) !!}
-    <div class="col-md-10">{!! $ae->path !!}</div>
+    <div class="uploaded_image"><img src="{{ asset($ae->path) }}" alt=""></div>
 </div>
 
 <!-- Created At Field -->

@@ -4,16 +4,27 @@ namespace App\Models\Back;
 
 use Eloquent as Model;
 
+
 /**
- * Class Project
- * @package App\Models\Back
- * @version October 24, 2016, 2:42 pm UTC
+ * App\Models\Back\Project
+ *
+ * @property integer $id
+ * @property string $tit
+ * @property string $des
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Back\Project whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Back\Project whereTit($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Back\Project whereDes($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Back\Project whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Back\Project whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Project extends Model
 {
 
     public $table = 'projects';
-    
+
 
 
     public $fillable = [
@@ -41,5 +52,5 @@ class Project extends Model
         'dd' => 'required'
     ];
 
-    
+
 }

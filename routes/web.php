@@ -1,9 +1,28 @@
 <?php
 
 
+
+//$this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+//$this->post('login', 'Auth\LoginController@login');
+//$this->post('logout', 'Auth\LoginController@logout')->name('logout');
+//
+//// Registration Routes...
+//$this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+//$this->post('register', 'Auth\RegisterController@register');
+//
+//// Password Reset Routes...
+//$this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+//$this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+//$this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+//$this->post('password/reset', 'Auth\ResetPasswordController@reset');
+
+
+
+Route::get('logout', 'Auth\LoginController@logout');
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
+//Route::get('/{lang}', 'HomeController@index');
+Route::get('/', ['as' => '/home', 'uses' => 'HomeController@index']);
 
 Route::resource('products', 'ProductController');
 
@@ -23,15 +42,6 @@ Route::resource('productImages', 'ProductImagesController');
 
 Route::get('admin', 'Back\DashBoardController@index');
 
-Route::get('admin/news', ['as'=> 'admin.news.index', 'uses' => 'NewsController@index']);
-Route::post('admin/news', ['as'=> 'admin.news.store', 'uses' => 'NewsController@store']);
-Route::get('admin/news/create', ['as'=> 'admin.news.create', 'uses' => 'NewsController@create']);
-Route::put('admin/news/{news}', ['as'=> 'admin.news.update', 'uses' => 'NewsController@update']);
-Route::patch('admin/news/{news}', ['as'=> 'admin.news.update', 'uses' => 'NewsController@update']);
-Route::delete('admin/news/{news}', ['as'=> 'admin.news.destroy', 'uses' => 'NewsController@destroy']);
-Route::get('admin/news/{news}', ['as'=> 'admin.news.show', 'uses' => 'NewsController@show']);
-Route::get('admin/news/{news}/edit', ['as'=> 'admin.news.edit', 'uses' => 'NewsController@edit']);
-
 
 Route::get('admin/cities', ['as'=> 'admin.cities.index', 'uses' => 'CityController@index']);
 Route::post('admin/cities', ['as'=> 'admin.cities.store', 'uses' => 'CityController@store']);
@@ -41,9 +51,6 @@ Route::patch('admin/cities/{cities}', ['as'=> 'admin.cities.update', 'uses' => '
 Route::delete('admin/cities/{cities}', ['as'=> 'admin.cities.destroy', 'uses' => 'CityController@destroy']);
 Route::get('admin/cities/{cities}', ['as'=> 'admin.cities.show', 'uses' => 'CityController@show']);
 Route::get('admin/cities/{cities}/edit', ['as'=> 'admin.cities.edit', 'uses' => 'CityController@edit']);
-
-
-Route::get(config('laraadmin.adminRoute') . '/course_dt_ajax', 'CityController@dtajax');
 
 
 Route::get('admin/images', ['as'=> 'admin.images.index', 'uses' => 'ImageController@index']);
@@ -94,3 +101,62 @@ Route::patch('admin/aes/{aes}', ['as'=> 'admin.aes.update', 'uses' => 'Back\AeCo
 Route::delete('admin/aes/{aes}', ['as'=> 'admin.aes.destroy', 'uses' => 'Back\AeController@destroy']);
 Route::get('admin/aes/{aes}', ['as'=> 'admin.aes.show', 'uses' => 'Back\AeController@show']);
 Route::get('admin/aes/{aes}/edit', ['as'=> 'admin.aes.edit', 'uses' => 'Back\AeController@edit']);
+Route::delete('admin/aes/{aes}/deleteImage', ['as'=> 'admin.aes.deleteImage', 'uses' => 'Back\AeController@deleteImage']);
+
+
+
+
+
+Route::get('admin/families', ['as'=> 'admin.families.index', 'uses' => 'Back\FamilyController@index']);
+Route::post('admin/families', ['as'=> 'admin.families.store', 'uses' => 'Back\FamilyController@store']);
+Route::get('admin/families/create', ['as'=> 'admin.families.create', 'uses' => 'Back\FamilyController@create']);
+Route::put('admin/families/{families}', ['as'=> 'admin.families.update', 'uses' => 'Back\FamilyController@update']);
+Route::patch('admin/families/{families}', ['as'=> 'admin.families.update', 'uses' => 'Back\FamilyController@update']);
+Route::delete('admin/families/{families}', ['as'=> 'admin.families.destroy', 'uses' => 'Back\FamilyController@destroy']);
+Route::get('admin/families/{families}', ['as'=> 'admin.families.show', 'uses' => 'Back\FamilyController@show']);
+Route::get('admin/families/{families}/edit', ['as'=> 'admin.families.edit', 'uses' => 'Back\FamilyController@edit']);
+
+
+Route::get('admin/familyImages', ['as'=> 'admin.familyImages.index', 'uses' => 'Back\FamilyImagesController@index']);
+Route::post('admin/familyImages', ['as'=> 'admin.familyImages.store', 'uses' => 'Back\FamilyImagesController@store']);
+Route::get('admin/familyImages/create', ['as'=> 'admin.familyImages.create', 'uses' => 'Back\FamilyImagesController@create']);
+Route::put('admin/familyImages/{familyImages}', ['as'=> 'admin.familyImages.update', 'uses' => 'Back\FamilyImagesController@update']);
+Route::patch('admin/familyImages/{familyImages}', ['as'=> 'admin.familyImages.update', 'uses' => 'Back\FamilyImagesController@update']);
+Route::delete('admin/familyImages/{familyImages}', ['as'=> 'admin.familyImages.destroy', 'uses' => 'Back\FamilyImagesController@destroy']);
+Route::get('admin/familyImages/{familyImages}', ['as'=> 'admin.familyImages.show', 'uses' => 'Back\FamilyImagesController@show']);
+Route::get('admin/familyImages/{familyImages}/edit', ['as'=> 'admin.familyImages.edit', 'uses' => 'Back\FamilyImagesController@edit']);
+
+
+
+Route::get('admin/news', ['as'=> 'admin.news.index', 'uses' => 'Back\NewsController@index']);
+Route::post('admin/news', ['as'=> 'admin.news.store', 'uses' => 'Back\NewsController@store']);
+Route::get('admin/news/create', ['as'=> 'admin.news.create', 'uses' => 'Back\NewsController@create']);
+Route::put('admin/news/{news}', ['as'=> 'admin.news.update', 'uses' => 'Back\NewsController@update']);
+Route::patch('admin/news/{news}', ['as'=> 'admin.news.update', 'uses' => 'Back\NewsController@update']);
+Route::delete('admin/news/{news}', ['as'=> 'admin.news.destroy', 'uses' => 'Back\NewsController@destroy']);
+Route::get('admin/news/{news}', ['as'=> 'admin.news.show', 'uses' => 'Back\NewsController@show']);
+Route::get('admin/news/{news}/edit', ['as'=> 'admin.news.edit', 'uses' => 'Back\NewsController@edit']);
+
+
+Route::get('admin/tis', ['as'=> 'admin.tis.index', 'uses' => 'Back\TiController@index']);
+Route::post('admin/tis', ['as'=> 'admin.tis.store', 'uses' => 'Back\TiController@store']);
+Route::get('admin/tis/create', ['as'=> 'admin.tis.create', 'uses' => 'Back\TiController@create']);
+Route::put('admin/tis/{tis}', ['as'=> 'admin.tis.update', 'uses' => 'Back\TiController@update']);
+Route::patch('admin/tis/{tis}', ['as'=> 'admin.tis.update', 'uses' => 'Back\TiController@update']);
+Route::delete('admin/tis/{tis}', ['as'=> 'admin.tis.destroy', 'uses' => 'Back\TiController@destroy']);
+Route::get('admin/tis/{tis}', ['as'=> 'admin.tis.show', 'uses' => 'Back\TiController@show']);
+Route::get('admin/tis/{tis}/edit', ['as'=> 'admin.tis.edit', 'uses' => 'Back\TiController@edit']);
+
+
+Route::get('findTranslations', 'HomeController@findTranslations');
+
+
+Route::get('admin/languages', ['as'=> 'admin.languages.index', 'uses' => 'Back\LanguageController@index']);
+Route::post('admin/languages', ['as'=> 'admin.languages.store', 'uses' => 'Back\LanguageController@store']);
+Route::get('admin/languages/create', ['as'=> 'admin.languages.create', 'uses' => 'Back\LanguageController@create']);
+Route::put('admin/languages/{languages}', ['as'=> 'admin.languages.update', 'uses' => 'Back\LanguageController@update']);
+Route::patch('admin/languages/{languages}', ['as'=> 'admin.languages.update', 'uses' => 'Back\LanguageController@update']);
+Route::delete('admin/languages/{languages}', ['as'=> 'admin.languages.destroy', 'uses' => 'Back\LanguageController@destroy']);
+Route::get('admin/languages/{languages}', ['as'=> 'admin.languages.show', 'uses' => 'Back\LanguageController@show']);
+Route::get('admin/languages/{languages}/edit', ['as'=> 'admin.languages.edit', 'uses' => 'Back\LanguageController@edit']);
+Route::get('admin/languages/{languages}/translate', ['as'=> 'admin.languages.translate', 'uses' => 'Back\LanguageController@translate']);

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -15,7 +16,12 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
+//        if ( ! Auth::user() )
+//        {
+//            \Redirect::to('/login')->send();
+//        }else
+//        $this->middleware('auth');
     }
 
     /**
@@ -25,6 +31,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
+
+        if ( ! Auth::user() )
+        {
+            return redirect('login');
+        }
+
         return view('la.dashboard');
     }
 }

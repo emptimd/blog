@@ -18,7 +18,7 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    {!! Form::model($ae, ['route' => ['admin.aes.update', $ae->id], 'method' => 'patch', 'class' =>'dropzone', 'id' =>'dr','files' => true]) !!}
+                    {!! Form::model($ae, ['route' => ['admin.aes.update', $ae->id], 'method' => 'patch', 'id' =>'main-form']) !!}
 
                     @include('back.aes.fields')
 
@@ -31,62 +31,118 @@
 
 
 @push('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
+<style>
+    #wrap-img {
+        margin-bottom: 10px;
+    }
+    #wrap-img .uploaded_image {
+        margin-right: 10px;
+    }
+</style>
+
 @endpush
 
 @push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
-{{--<script>--}}
-{{--$('a').on('click', function() {--}}
-{{--$('[type="file"]').click();--}}
-{{--});--}}
-{{--</script>--}}
-
 <script>
-    (function() {
-        alert(11);
+    var route = $('#main-form').attr('action');
+    var str = route.substr(route.lastIndexOf('/')) + '$';
+    var loc = route.replace( new RegExp(str), '' );
+
+    $('a.btn_upload_image').on('click', function() {
+        $('[type="file"]').click();
     });
-    Dropzone.options.dr = { // The camelized version of the ID of the form element
 
-        // The configuration we've talked about above
-//        autoProcessQueue: false,
-//        uploadMultiple: true,
-//        parallelUploads: 100,
-//        maxFiles: 100,
-        paramName : 'path',
-        maxFilesize : 35,
-        acceptedFiles : '.jpg, .jpeg, .png',
-//        url: "/admin/aes/store",
+    $('[type="file"]').on('change',function(){
+        var $this = $(this);
 
-        // The setting up of the dropzone
-        init: function() {
-            var myDropzone = this;
+        var preview = $('#wrap-img').empty();
+        var files    = $this[0].files;
+        var reader  = new FileReader();
+        var i = 0;
 
-            // First change the button to actually tell Dropzone to process the queue.
-            this.element.querySelector("button").addEventListener("click", function(e) {
-                // Make sure that the form isn't actually being sent.
-                e.preventDefault();
-                e.stopPropagation();
-                myDropzone.processQueue();
-            });
 
-            // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
-            // of the sending event because uploadMultiple is set to true.
-            this.on("sendingmultiple", function() {
-                // Gets triggered when the form is actually being sent.
-                // Hide the success button or the complete form.
-            });
-            this.on("successmultiple", function(files, response) {
-                // Gets triggered when the files have successfully been sent.
-                // Redirect user or notify of success.
-            });
-            this.on("errormultiple", function(files, response) {
-                // Gets triggered when there was an error sending the files.
-                // Maybe show form again, and notify user of error
-            });
+        reader.onload = function () {
+            var div = document.createElement("div");
+            var $div = $(div).attr("class", "uploaded_image").append('<img src="'+reader.result+'"/>').append('<i title="Remove Image" class="fa fa-times remove new" data-i="'+ i +'" />');
+
+            preview.append($div);
+
+            if(files[++i]) {
+                reader.readAsDataURL(files[i]);
+            }
         }
 
-    }
+        if (files[i]) {
+            reader.readAsDataURL(files[i]);
+        }
+
+    });
+
+    $('form').on('click', 'i.remove.new', function(){
+        var $this = $(this);
+        $this.parent().remove();
+    });
+
+    $('form').on('click', 'i.remove.old', function(){
+        var $this = $(this);
+        var id = $this.data('id');
+        var formData = new FormData();
+        formData.set('_method', 'DELETE');
+        formData.set('_token', $("[name = '_token']").val());
+
+        if(confirm('Are you sure?')) {
+            $.ajax({
+                type: 'POST',
+                url: location.protocol+'//'+location.host+'/admin/aes/'+id+'/deleteImage',
+                data: formData,
+                contentType: false,
+                processData: false,
+            }).done(function( data ) {
+                $this.parent().remove();
+            });
+
+        }
+    });
+
+    $('form').on('submit',function(e){
+        var $this = $(this);
+        var files = $('[type="file"]')[0].files;
+        var formdata = new FormData($this[0]);
+        formdata.delete('path');
+        e.preventDefault();
+
+        $('.has-error').removeClass('has-error').find('p.help-block').remove();
+
+        //IF HAVE IMAGES.
+        if(files.length) {
+            formdata.append('path', files[0]);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: route,
+            data: formdata,
+            contentType: false,
+            processData: false,
+        }).done(function( data, status, request ) {
+            if(request.status == 200) {
+                location = loc;
+            }
+        }).error(function (request, status, error) {
+            if(request.status == 422) {
+                console.log(request.responseJSON);
+                var data = request.responseJSON;
+                for(var obj in data) {
+                    $this.find('[name="'+obj+'"]').after('<p class="help-block">'+data[obj]+'</p>').parent().addClass('has-error');
+                    if(obj.indexOf('path') !== -1) {
+                        $this.find('.btn_upload_image').after('<p class="help-block">'+data[obj]+'</p>').parent().addClass('has-error');
+                    }
+                }
+
+            }
+        });
+
+    });
 
 </script>
 
