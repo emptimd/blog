@@ -28,7 +28,16 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 
+//        $group = 'category';
+//        $locale = 'en-GB';
+//
+//        $data = \DB::table('language_translate')
+//            ->join('language_source', 'language_translate.id', '=', 'language_source.id')
+//            ->where('category', '=', $group)
+//            ->where('language', '=', $locale)
+//            ->pluck('translation', 'message');
 
+//        dd($data);
 
 
 

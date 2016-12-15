@@ -1,7 +1,5 @@
 <?php
 
-
-
 //$this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 //$this->post('login', 'Auth\LoginController@login');
 //$this->post('logout', 'Auth\LoginController@logout')->name('logout');
@@ -149,6 +147,10 @@ Route::get('admin/tis/{tis}/edit', ['as'=> 'admin.tis.edit', 'uses' => 'Back\TiC
 
 
 Route::get('findTranslations', 'HomeController@findTranslations');
+
+Route::post('admin/languages', function() {
+    throw new \Exception(123);
+});
 
 
 Route::get('admin/languages', ['as'=> 'admin.languages.index', 'uses' => 'Back\LanguageController@index']);

@@ -79,7 +79,7 @@ return [
 
     'locale' => 'en',
 
-    'locales' => ['en' => 'English', 'sv' => 'Swedish', 'ru' => 'Russian'],
+    'locales' => ['en' => 'English', 'sv' => 'Swedish', 'ru-RU' => 'Russian'],
 
     'skip_locales' => ['admin', 'translations'],
 
@@ -163,7 +163,7 @@ return [
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
+//        Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
@@ -186,7 +186,7 @@ return [
         \InfyOm\AdminLTETemplates\AdminLTETemplatesServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         \Creativeorange\Gravatar\GravatarServiceProvider::class,
-        Barryvdh\TranslationManager\ManagerServiceProvider::class,
+//        Barryvdh\TranslationManager\ManagerServiceProvider::class,
 //        Proengsoft\JsValidation\JsValidationServiceProvider::class,
 
 
@@ -199,6 +199,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TranslationServiceProvider::class,
 
     ],
 

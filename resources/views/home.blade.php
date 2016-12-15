@@ -6,7 +6,8 @@
 
         <h3>{{ trans('messages.welcomeDude') }}</h3>
         <h3>{{ trans('messages.aae') }}</h3>
-        <h3>{{ trans('mega.aae') }}</h3>
+        <h3>{{ trans('mega1.aae') }}</h3>
+        <h3>{{ trans('mega1.you') }}</h3>
 
 
         <select name="test" id="test">
@@ -19,3 +20,9 @@
     </div>
 </div>
 @endsection
+
+
+you halloe boy
+
+
+<?= $variable;?>

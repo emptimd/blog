@@ -18,7 +18,7 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    {!! Form::open(['route' => 'admin.languages.store', 'id' => 'main-form']) !!}
+                    {!! Form::open(['url' => 'admin/languages', 'id' => 'main-form']) !!}
 
                     @include('back.languages.fields')
 

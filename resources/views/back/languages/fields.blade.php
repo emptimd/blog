@@ -36,5 +36,5 @@
 <!-- Submit Field -->
 <div class="form-group">
     {!! Form::submit('Save', ['class' => 'btn btn-success']) !!}
-    <button class="btn btn-default pull-right"><a href="{!! route('admin.languages.index') !!}">Cancel</a></button>
+    <button class="btn btn-default pull-right"><a href="{!! url('admin/languages') !!}">Cancel</a></button>
 </div>

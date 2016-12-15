@@ -52,6 +52,7 @@ class LanguageController extends AppBaseController
      */
     public function store(CreateLanguageRequest $request)
     {
+        throw new \Exception(1);
         $input = $request->all();
 
         $language = $this->languageRepository->create($input);
@@ -117,6 +118,7 @@ class LanguageController extends AppBaseController
      */
     public function update($id, UpdateLanguageRequest $request)
     {
+        throw new \Exception(123);
         $language = $this->languageRepository->findWithoutFail($id);
 
         if (empty($language)) {
