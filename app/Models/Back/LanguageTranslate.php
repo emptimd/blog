@@ -22,13 +22,14 @@ class LanguageTranslate extends Model
 {
 
     public $table = 'language_translate';
-    
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';
+    public $timestamps = false;
+    protected $primaryKey = ['id', 'language'];
+    public $incrementing = false;
 
 
 
     public $fillable = [
+        'id',
         'language',
         'translation'
     ];
@@ -58,7 +59,7 @@ class LanguageTranslate extends Model
      **/
     public function languageSource()
     {
-        return $this->belongsTo(\App\Models\Back\LanguageSource::class);
+        return $this->belongsTo(\App\Models\Back\LanguageSource::class, 'id');
     }
 
     /**
@@ -67,5 +68,24 @@ class LanguageTranslate extends Model
     public function language()
     {
         return $this->belongsTo(\App\Models\Back\Language::class);
+    }
+
+
+    /**
+     * Set the keys for a save update query.
+     * This is a fix for tables with composite keys
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function setKeysForSaveQuery(\Illuminate\Database\Eloquent\Builder $query) {
+        if (is_array($this->primaryKey)) {
+            foreach ($this->primaryKey as $pk) {
+                $query->where($pk, '=', $this->original[$pk]);
+            }
+            return $query;
+        }else{
+            return parent::setKeysForSaveQuery($query);
+        }
     }
 }

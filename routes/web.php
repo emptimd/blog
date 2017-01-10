@@ -148,17 +148,37 @@ Route::get('admin/tis/{tis}/edit', ['as'=> 'admin.tis.edit', 'uses' => 'Back\TiC
 
 Route::get('findTranslations', 'HomeController@findTranslations');
 
-Route::post('admin/languages', function() {
-    throw new \Exception(123);
-});
-
-
 Route::get('admin/languages', ['as'=> 'admin.languages.index', 'uses' => 'Back\LanguageController@index']);
+Route::get('admin/languages/scan', ['as'=> 'admin.languages.scan', 'uses' => 'Back\LanguageController@scan']);
 Route::post('admin/languages', ['as'=> 'admin.languages.store', 'uses' => 'Back\LanguageController@store']);
 Route::get('admin/languages/create', ['as'=> 'admin.languages.create', 'uses' => 'Back\LanguageController@create']);
 Route::put('admin/languages/{languages}', ['as'=> 'admin.languages.update', 'uses' => 'Back\LanguageController@update']);
 Route::patch('admin/languages/{languages}', ['as'=> 'admin.languages.update', 'uses' => 'Back\LanguageController@update']);
 Route::delete('admin/languages/{languages}', ['as'=> 'admin.languages.destroy', 'uses' => 'Back\LanguageController@destroy']);
+Route::post('admin/languages/removeOld', ['as'=> 'admin.languages.removeOld', 'uses' => 'Back\LanguageController@removeOld']);
+Route::post('admin/languages/{languages}/save', ['as'=> 'admin.languages.save', 'uses' => 'Back\LanguageController@save']);
 Route::get('admin/languages/{languages}', ['as'=> 'admin.languages.show', 'uses' => 'Back\LanguageController@show']);
 Route::get('admin/languages/{languages}/edit', ['as'=> 'admin.languages.edit', 'uses' => 'Back\LanguageController@edit']);
 Route::get('admin/languages/{languages}/translate', ['as'=> 'admin.languages.translate', 'uses' => 'Back\LanguageController@translate']);
+
+
+
+
+Route::get('admin/referrals', ['as'=> 'admin.referrals.index', 'uses' => 'Back\ReferralController@index']);
+Route::post('admin/referrals', ['as'=> 'admin.referrals.store', 'uses' => 'Back\ReferralController@store']);
+Route::get('admin/referrals/create', ['as'=> 'admin.referrals.create', 'uses' => 'Back\ReferralController@create']);
+Route::put('admin/referrals/{referrals}', ['as'=> 'admin.referrals.update', 'uses' => 'Back\ReferralController@update']);
+Route::patch('admin/referrals/{referrals}', ['as'=> 'admin.referrals.update', 'uses' => 'Back\ReferralController@update']);
+Route::delete('admin/referrals/{referrals}', ['as'=> 'admin.referrals.destroy', 'uses' => 'Back\ReferralController@destroy']);
+Route::get('admin/referrals/{referrals}', ['as'=> 'admin.referrals.show', 'uses' => 'Back\ReferralController@show']);
+Route::get('admin/referrals/{referrals}/edit', ['as'=> 'admin.referrals.edit', 'uses' => 'Back\ReferralController@edit']);
+
+
+Route::get('admin/reffLevels', ['as'=> 'admin.reffLevels.index', 'uses' => 'Back\ReffLevelController@index']);
+Route::post('admin/reffLevels', ['as'=> 'admin.reffLevels.store', 'uses' => 'Back\ReffLevelController@store']);
+Route::get('admin/reffLevels/create', ['as'=> 'admin.reffLevels.create', 'uses' => 'Back\ReffLevelController@create']);
+Route::put('admin/reffLevels/{reffLevels}', ['as'=> 'admin.reffLevels.update', 'uses' => 'Back\ReffLevelController@update']);
+Route::patch('admin/reffLevels/{reffLevels}', ['as'=> 'admin.reffLevels.update', 'uses' => 'Back\ReffLevelController@update']);
+Route::delete('admin/reffLevels/{reffLevels}', ['as'=> 'admin.reffLevels.destroy', 'uses' => 'Back\ReffLevelController@destroy']);
+Route::get('admin/reffLevels/{reffLevels}', ['as'=> 'admin.reffLevels.show', 'uses' => 'Back\ReffLevelController@show']);
+Route::get('admin/reffLevels/{reffLevels}/edit', ['as'=> 'admin.reffLevels.edit', 'uses' => 'Back\ReffLevelController@edit']);

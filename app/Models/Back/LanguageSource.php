@@ -22,6 +22,8 @@ class LanguageSource extends Model
 {
 
     public $table = 'language_source';
+    public $timestamps = false;
+
 
     const INSERT_LANGUAGE_ITEMS_LIMIT = 10;
 
@@ -61,6 +63,7 @@ class LanguageSource extends Model
      */
     public function insertLanguageItems($languageItems)
     {
+
         $data = [];
         foreach ($languageItems as $category => $messages) {
             foreach (array_keys($messages) as $message) {
@@ -70,6 +73,8 @@ class LanguageSource extends Model
                 ];
             }
         }
+
+
 
         $count = count($data);
         for ($i = 0; $i < $count; $i += self::INSERT_LANGUAGE_ITEMS_LIMIT) {
@@ -88,6 +93,6 @@ class LanguageSource extends Model
      **/
     public function languageTranslate()
     {
-        return $this->hasOne(\App\Models\Back\LanguageTranslate::class);
+        return $this->hasOne(\App\Models\Back\LanguageTranslate::class, 'id');
     }
 }

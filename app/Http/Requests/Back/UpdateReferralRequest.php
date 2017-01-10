@@ -3,9 +3,9 @@
 namespace App\Http\Requests\Back;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Back\Language;
+use App\Models\Back\Referral;
 
-class CreateLanguageRequest extends FormRequest
+class UpdateReferralRequest extends FormRequest
 {
 
     /**
@@ -25,6 +25,6 @@ class CreateLanguageRequest extends FormRequest
      */
     public function rules()
     {
-        return Language::$rules;
+        return Referral::$rules;
     }
 }

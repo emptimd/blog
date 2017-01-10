@@ -17,7 +17,9 @@
         "infyomlabs/adminlte-templates": "5.3.x-dev",
         "yajra/laravel-datatables-oracle": "~6.0",
         "creativeorange/gravatar": "^1.0",
-        "barryvdh/laravel-translation-manager": "^0.2.5"
+        "illuminate/support": "5.0.x|5.1.x|5.2.x|5.3.x",
+        "illuminate/translation": "5.0.x|5.1.x|5.2.x|5.3.x",
+        "symfony/finder": "~2.3|~3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

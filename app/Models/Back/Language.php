@@ -29,6 +29,7 @@ class Language extends Model
 
     public $table = 'language';
     protected $primaryKey = 'language_id';
+    public $timestamps = false;
 //    protected $perPage = 25;
 
     /**
@@ -85,7 +86,7 @@ class Language extends Model
      * @var array
      */
     public static $rules = [
-        'language_id' => ['required', 'unique:language', 'max:5', 'regex:/^([a-z]{2}[_-][A-Z]{2}|[a-z]{2})$/'],
+        'language_id' => ['required', 'unique:language', 'min:5', 'max:5', 'regex:/^([a-z]{2}[_-][A-Z]{2}|[a-z]{2})$/'],
         'language' => ['required', 'max:2', 'regex:/^[a-z]{2}$/i'],
         'country' => ['required', 'max:2', 'regex:/^[a-z]{2}$/i'],
         'name' => 'required|max:32',
@@ -109,6 +110,33 @@ class Language extends Model
      */
     public static function getStatusNames() {
         return self::$_CONDITIONS;
+    }
+
+
+    /**
+     * Returns the completness of a given translation (language).
+     * @return integer
+     */
+    public function getGridStatistic() {
+        static $statistics;
+        if (!$statistics) {
+            $count = LanguageSource::all()->count();
+            if ($count == 0) {
+                return 0;
+            }
+
+            $languageTranslates = LanguageTranslate::
+            select(['language', \DB::raw('COUNT(*) AS cnt')])
+                ->whereNotNull('translation')
+                ->groupBy(['language'])
+                ->get();
+
+            foreach ($languageTranslates as $languageTranslate) {
+                $statistics[$languageTranslate->language] = floor(($languageTranslate->cnt / $count) * 100);
+            }
+        }
+
+        return isset($statistics[$this->language_id]) ? $statistics[$this->language_id] : 0;
     }
 
 

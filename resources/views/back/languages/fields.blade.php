@@ -1,3 +1,10 @@
+<!-- Language ID Field -->
+<div class="form-group {{ $errors->has('language_id') ? 'has-error' : ''}}">
+    {!! Form::label('language_id', 'Language ID:') !!}
+    {!! Form::text('language_id', null, ['class' => 'form-control']) !!}
+    {!! $errors->first('language_id', '<p class="help-block">:message</p>') !!}
+</div>
+
 <!-- Language Field -->
 <div class="form-group {{ $errors->has('language') ? 'has-error' : ''}}">
     {!! Form::label('language', 'Language:') !!}
@@ -27,7 +34,7 @@
 </div>
 
 <!-- Status Field -->
-<div class="form-group col-sm-6 {{ $errors->has('status') ? 'has-error' : ''}}">
+<div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
     {!! Form::label('status', 'Status:') !!}
     {!! Form::number('status', null, ['class' => 'form-control']) !!}
     {!! $errors->first('status', '<p class="help-block">:message</p>') !!}

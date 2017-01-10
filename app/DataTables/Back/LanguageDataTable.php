@@ -3,6 +3,8 @@
 namespace App\DataTables\Back;
 
 use App\Models\Back\Language;
+use App\Models\Back\LanguageSource;
+use App\Models\Back\LanguageTranslate;
 use Form;
 use Yajra\Datatables\Services\DataTable;
 
@@ -14,9 +16,14 @@ class LanguageDataTable extends DataTable
      */
     public function ajax()
     {
+
+//        throw new \Exception(json_encode($this->query()));
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', 'back.languages.datatables_actions')
+            ->addColumn('statistic', function($model) {
+                return "<span class='statistic'><span style='width:{$model->getGridStatistic()}%'></span><i>{$model->getGridStatistic()}%</i></span>";
+            })
             ->make(true);
     }
 
@@ -27,7 +34,9 @@ class LanguageDataTable extends DataTable
      */
     public function query()
     {
-        $languages = Language::query();
+
+        $languages = Language::select(['language_id', 'name_ascii', 'status']);
+
 
         return $this->applyScopes($languages);
     }
@@ -41,10 +50,22 @@ class LanguageDataTable extends DataTable
     {
         return $this->builder()
             ->columns($this->getColumns())
+            ->addColumn([
+                'defaultContent' => '',
+                'data'           => 'statistic',
+                'name'           => 'statistic',
+                'title'          => 'Statistic',
+                'render'         => null,
+                'orderable'      => false,
+                'searchable'     => false,
+                'exportable'     => false,
+                'printable'      => true,
+                'footer'         => '',
+            ])
             ->addAction(['width' => 'auto'])
             ->ajax('')
             ->parameters([
-                'order' => [[0,'desc']],
+                'order' => [[2,'desc']],
 //                'dom' => 'Bfrtip',
                 'pageLength' => 25,
                 'language' => [
@@ -80,12 +101,37 @@ class LanguageDataTable extends DataTable
     {
         return [
             'language_id' => ['name' => 'language_id', 'data' => 'language_id'],
-            'language' => ['name' => 'language', 'data' => 'language'],
-            'country' => ['name' => 'country', 'data' => 'country'],
-            'name' => ['name' => 'name', 'data' => 'name'],
+//            'tt' => [' name' => 'tt', 'data' => 'tt'],
+//            'country' => ['name' => 'country', 'data' => 'country'],
+//            'name' => ['name' => 'name', 'data' => 'name'],
             'name_ascii' => ['name' => 'name_ascii', 'data' => 'name_ascii'],
             'status' => ['name' => 'status', 'data' => 'status']
         ];
+    }
+
+    public function statistic()
+    {
+        static $statistics;
+        if (!$statistics) {
+            $count = LanguageSource::all()->count();
+            if ($count == 0) {
+                return 0;
+            }
+
+            $languageTranslates = LanguageTranslate::
+                select(['language', 'COUNT(*) AS cnt'])
+                ->whereNotNull('translation')
+                ->groupBy(['language'])
+                ->get();
+
+            foreach ($languageTranslates as $languageTranslate) {
+                $statistics[$languageTranslate->language] = floor(($languageTranslate->cnt / $count) * 100);
+            }
+        }
+
+        return isset($statistics[$this->language_id]) ? $statistics[$this->language_id] : 0;
+
+        return view('statistic', []);
     }
 
     /**

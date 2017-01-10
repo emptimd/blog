@@ -46,15 +46,17 @@ class Translator extends \Illuminate\Translation\Translator
             $line = $this->getLine(
                 $namespace, $group, $locale, $item, $replace
             );
-            // If we cannot find the translation group in the database nor as a file
-            // an entry in the database will be added to the translations.
-            // Keep in mind that a file cannot be used from that point.
-            if(!self::isNamespaced($namespace) && is_null($line)) {
-//                dd($item);
+//            // If we cannot find the translation group in the database nor as a file
+//            // an entry in the database will be added to the translations.
+//            // Keep in mind that a file cannot be used from that point.
+//            if(!self::isNamespaced($namespace) && is_null($line)) {
+////                dd($item);
+//                throw new \Exception($line);
+//
 //                throw new \Exception(12);
-                // Database stuff
-                $this->database->addTranslation($locale, $group, $key);
-            }
+//                // Database stuff
+//                $this->database->addTranslation($locale, $group, $key);
+//            }
             if ( ! is_null($line)) break;
         }
         // If the line doesn't exist, we will return back the key which was requested as
@@ -68,12 +70,14 @@ class Translator extends \Illuminate\Translation\Translator
     public function load($namespace, $group, $locale)
     {
         if ($this->isLoaded($namespace, $group, $locale)) return;
+//        dd($group);
+//        dd($locale);
         // If a Namespace is give the Filesystem will be used
         // otherwise we'll use our database.
         // This will allow legacy support.
         if(!self::isNamespaced($namespace)) {
             // If debug is off then cache the result forever to ensure high performance.
-            if(!\Config::get('app.debug')/* || true*/) {
+            if(!\Config::get('app.debug') || true) {
                 $that = $this;
                 $lines = \Cache::rememberForever('__translations.'.$locale.'.'.$group, function() use ($that, $locale, $group, $namespace) {
                     return $that->loadFromDatabase($namespace, $group, $locale);
@@ -86,6 +90,7 @@ class Translator extends \Illuminate\Translation\Translator
             $lines = $this->loader->load($locale, $group, $namespace);
         }
         $this->loaded[$namespace][$group][$locale] = $lines;
+
     }
 
 
@@ -97,16 +102,9 @@ class Translator extends \Illuminate\Translation\Translator
      */
     protected function loadFromDatabase($namespace, $group, $locale)
     {
-//        throw new \Exception(1);
-
         $lines = $this->database->load($locale, $group, $namespace);
-//        throw new \Exception(1);
-
 
         if (count($lines) == 0) {
-//            if($group == 'mega1') {
-//                throw new \Exception($locale);
-//            }
             $lines = $this->loader->load($locale, $group, $namespace);
             return $lines;
         }
@@ -121,7 +119,7 @@ class Translator extends \Illuminate\Translation\Translator
      */
     protected function parseLocale($locale)
     {
-        return array_filter([$locale ?: $this->locale, $this->fallback]);
+        return [$this->locale , substr($this->locale, 0, -3), $this->fallback];
     }
 
 }

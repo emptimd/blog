@@ -57,3 +57,11 @@
     <a href="{!! route('admin.languages.index') !!}"><i class="fa fa-edit"></i><span>Languages</span></a>
 </li>
 
+<li class="{{ Request::is('admin/referrals*') ? 'active' : '' }}">
+    <a href="{!! route('admin.referrals.index') !!}"><i class="fa fa-edit"></i><span>Referrals</span></a>
+</li>
+
+<li class="{{ Request::is('admin/reffLevels*') ? 'active' : '' }}">
+    <a href="{!! route('admin.reffLevels.index') !!}"><i class="fa fa-edit"></i><span>ReffLevels</span></a>
+</li>
+

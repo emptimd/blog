@@ -4,6 +4,7 @@ namespace App\Http\Requests\Back;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Back\Language;
+use Illuminate\Http\Request;
 
 class UpdateLanguageRequest extends FormRequest
 {
@@ -25,6 +26,6 @@ class UpdateLanguageRequest extends FormRequest
      */
     public function rules()
     {
-        return Language::$rules;
+        return array_merge(Language::$rules,['language_id' => ['required', 'unique:language,language_id,'.$this->route('languages').',language_id', 'min:5', 'max:5', 'regex:/^([a-z]{2}[_-][A-Z]{2}|[a-z]{2})$/']]);
     }
 }

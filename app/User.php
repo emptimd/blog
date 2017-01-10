@@ -49,4 +49,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function referrals() {
+        return $this->hasMany(\App\Models\Back\Referral::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function referrer() {
+        return $this->hasOne(\App\Models\Back\Referral::class, 'referral_id')->where('ref_level','=', 1);
+    }
 }

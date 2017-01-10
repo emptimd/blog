@@ -72,20 +72,20 @@
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox" name="remember"> Remember Me
+                            <input type="checkbox" name="remember"> {{ trans('frontend.Remember Me') }}
                         </label>
                     </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('frontend.Sign In') }}</button>
                 </div>
                 <!-- /.col -->
             </div>
         </form>
 
-        <a href="{{ url('/password/reset') }}">I forgot my password</a><br>
-        <a href="{{ url('/register') }}" class="text-center">Register a new membership</a>
+        <a href="{{ url('/password/reset') }}">{{ trans('frontend.I forgot my password') }}</a><br>
+        <a href="{{ url('/register') }}" class="text-center">{{ trans('frontend.Register a new membership') }}</a>
 
     </div>
     <!-- /.login-box-body -->
